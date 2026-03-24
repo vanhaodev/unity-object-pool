@@ -1,0 +1,19 @@
+{
+  "name": "com.vanhaodev.objectpool",
+  "version": "1.0.0",
+  "displayName": "Object Pool",
+  "description": "",
+  "unity": "6000.0",
+  "author": {
+    "name": "vanhaodev"
+  },
+  "documentationUrl": "https://github.com/vanhaodev/unity-object-pool",
+  "keywords": ["vanhaodev", "pool", "object"],
+  "samples": [
+    {
+      "displayName": "Sample",
+      "description": "",
+      "path": "Samples~"
+    }
+  ]
+}
