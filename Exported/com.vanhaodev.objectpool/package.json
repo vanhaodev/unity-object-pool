@@ -1,6 +1,6 @@
 {
   "name": "com.vanhaodev.objectpool",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "Object Pool",
   "description": "A simple, high-performance, generic object pooling library for Unity. Works with any type `T`, including `GameObject` and custom classes.",
   "unity": "6000.0",

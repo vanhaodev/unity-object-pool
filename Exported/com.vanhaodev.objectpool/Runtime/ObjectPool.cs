@@ -19,7 +19,7 @@ namespace com.vanhaodev.objectpool
 
 		#region Public properties
 
-		public int CountAll { get; private set; }
+		public int CountAll => _actives.Count + _stack.Count;
 		public int ActiveCount => _actives.Count;
 		public int InactiveCount => _stack.Count;
 
@@ -70,30 +70,35 @@ namespace com.vanhaodev.objectpool
 		}
 
 		/// <summary>
-		/// 
+		/// Clears the pool and optionally active items, returning all removed items.
 		/// </summary>
 		/// <param name="includeActive">Destroy running/active object</param>
-		public void Clear(bool includeActive = false)
+		/// <returns>List of items removed from the pool</returns>
+		public List<T> Clear(bool includeActive = false)
 		{
-			// clear idle
+			List<T> removedItems = new List<T>();
+
+			// Clear idle items (_stack)
 			while (_stack.Count > 0)
 			{
 				var item = _stack.Pop();
 				_onDestroy?.Invoke(item);
+				removedItems.Add(item);
 			}
 
-			// clear active
+			// Clear active items if requested
 			if (includeActive)
 			{
 				foreach (var item in _actives)
 				{
 					_onDestroy?.Invoke(item);
+					removedItems.Add(item);
 				}
 
 				_actives.Clear();
 			}
-
-			CountAll = 0;
+			
+			return removedItems;
 		}
 
 		#endregion
@@ -103,7 +108,6 @@ namespace com.vanhaodev.objectpool
 		private T Create()
 		{
 			var item = _factory();
-			CountAll++;
 			return item;
 		}
 
